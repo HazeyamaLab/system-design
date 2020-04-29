@@ -17,7 +17,10 @@ readonly LOGO='-----------------------------------------------------------------
 ------------------------------------------------------------------------
 以上に同意して実行する場合は y をキャンセルする場合は n を入力してください．[y/n]'
 
-# 実行するかの確認
+##################################################
+# 関数 (処理が複雑な部分は関数化)
+##################################################
+# 実行確認関数
 function confirm_execution() {
   read -p ">> " input
 
@@ -35,7 +38,7 @@ function confirm_execution() {
   fi
 }
 
-# 学籍番号確認
+# 学籍番号確認関数
 function confirm_student_id() {
   
   echo "学籍番号を入力してください．"
@@ -50,43 +53,93 @@ function confirm_student_id() {
   fi
 }
 
+# Gradleのインストール関数(6.3をインストール後に6.2.2にする)
+function install_gradle() {
+  brew insatll gradle
+  cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/
+  git checkout 5fd374b706a7949f13fc20c654764c2ac5986e42 gradle.rb
+  brew unlink gradle
+  brew insatll gradle
+}
 
+
+##################################################
+# main部分
+##################################################
+# アスキーアートと説明の出力
 echo "$LOGO"
 
-
+# 確認プロンプトの出力
 confirm_execution
 confirm_student_id
 
-# ログファイルの命名
-LOG_OUT=./$ID-stdout.log
-LOG_ERR=./$ID-stderr.log
+# ログ出力の設定(今回は標準出力，標準エラー出力の両方を同じファイルに出力する)
 DEFAULT_PATH=$PWD
+FILE_NAME=$ID.log
+LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
+exec 2>&1 > >(tee -a $LOG_OUT)
 
-exec 1> >(tee -a $LOG_OUT)
-exec 2>>$LOG_ERR
+# ログファイルの先頭に実行日時などを記載
+DATE=$(date +"%Y/%m/%d %T")
+OS_INFO=$(sw_vers)
+echo "------------------------------------------------------------
+[INFO] ${DATE} User: ${ID}
+------------------------------------------------------------
+${OS_INFO}
+------------------------------------------------------------" >> $LOG_OUT
 
 # Command Line Developper Toolsのインストール
 if which xcode-select >/dev/null 2>&1; then
-  echo "[1/4] xcode-select is already installed! skipping this step."
+  echo "[1/6] xcode-select はインストール済みです. このステップはスキップします."
 else
-  echo "[1/4] installing xcode-select..."
+  echo "[1/6] xcode-select をインストール中です."
   xcode-select --install
 fi
 
 # Homebrewのインストール
 if which brew >/dev/null 2>&1; then
-  echo "[2/4] homebrew is already installed! skipping this step."
+  echo "[2/6] homebrew はインストール済みです. このステップはスキップします."
 else
-  echo "[2/4] installing homebrew..."
+  echo "[2/6] homebrew をインストール中です..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-# GitHubからBrewfileをダウンロード (とりあえずHOMEディレクトリに配置する．)
-echo "[3/4] download Brewfile..."
-cd "$HOME" && curl -fsSL https://raw.githubusercontent.com/HazeyamaLab/system-design/master/macOS/Brewfile > ./Brewfile
+# MySQLのインストール
+if which mysql >/dev/null 2>&1; then
+  echo "[3/6] MySQL はインストール済みです. このステップはスキップします."
+  CURRENT_MYSQL_VERSION=$(mysql --version)
+  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> $LOG_OUT
+else
+  echo "[3/6] MySQL をインストール中です..."
+  brew install mysql
+fi
 
-# 取得したBrewfileをもとにパッケージをインストール
-echo "[4/4] installing package..."
-cd "$HOME" && brew bundle && rm Brewfile
+# Javaのインストール
+if which java >/dev/null 2>&1; then
+  echo "[4/6] Java はインストール済みです. このステップはスキップします."
+  CURRENT_JAVA_VERSION=$(java -version 2>&1)
+  echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> $LOG_OUT
+  echo "[DEBUG] ENV JAVA_HOME:  ${JAVA_HOME}" >> $LOG_OUT
+else
+  echo "[4/6] Java をインストール中です..."
+  brew tap homebrew/cask
+  brew tap AdoptOpenJDK/openjdk
+  brew cask adoptopenjdk/openjdk/adoptopenjdk8
+  brew cask adoptopenjdk11
+fi
 
-echo "Completed!"
+# Gradleのインストール
+if which gradle >/dev/null 2>&1; then
+  echo "[5/6] Gradle はインストール済みです. このステップはスキップします."
+  CURRENT_GRADLE_VERSION=$(gradle -version)
+  echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> $LOG_OUT
+else
+  echo "[5/6] Gradle をインストール中です..."
+  install_gradle
+fi
+
+# ログデータの送信
+curl -fsSL -X POST http://localhost:9000/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> $LOG_OUT
+echo "[6/6] ログデータを送信しています..."
+
+echo "完了しました✨"
