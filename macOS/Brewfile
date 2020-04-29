@@ -1,5 +1,0 @@
-tap "homebrew/cask"
-brew "curl"
-brew "mysql"
-cask "mysqlworkbench"
-cask "eclipse-java"
