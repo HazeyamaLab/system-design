@@ -139,7 +139,7 @@ else
 fi
 
 # ログデータの送信
-curl -fsSL -X POST http://localhost:9000/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> $LOG_OUT
+curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> $LOG_OUT
 echo "[6/6] ログデータを送信しています..."
 
 echo "完了しました✨"
