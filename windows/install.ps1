@@ -81,7 +81,7 @@ if (gcm git -ea SilentlyContinue) {
   Write-Host "[3/7] git はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[3/7] git をインストールしています..."
-  # scoop install git
+  scoop install git
 }
 
 # MySQLのインストール
