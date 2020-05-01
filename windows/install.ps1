@@ -61,13 +61,68 @@ Confirm-Execution
 Start-Transcript "$DefaultPath/$ID.log"
 
 # scoopのインストール
+if (gcm scoop -ea SilentlyContinue) {
+  Write-Host "[1/7] scoop はインストール済みです. このステップはスキップします."
+} else {
+  Write-Host "[1/7] scoop をインストールしています..."
+  Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+}
+
 # chocolateyのインストール
+if (gcm choco -ea SilentlyContinue) {
+  Write-Host "[2/7] chocolatey はインストール済みです. このステップはスキップします."
+} else {
+  Write-Host "[2/7] chocolatey をインストールしています..."
+  Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+}
+
 # Gitのインストール
+if (gcm git -ea SilentlyContinue) {
+  Write-Host "[3/7] git はインストール済みです. このステップはスキップします."
+} else {
+  Write-Host "[3/7] git をインストールしています..."
+  # scoop install git
+}
+
 # MySQLのインストール
+if (gcm mysql -ea SilentlyContinue) {
+  Write-Host "[4/7] MySQL はインストール済みです. このステップはスキップします."
+  Write-Host "[DEBUG] MySQLのバージョンを確認します."
+  mysql --version
+} else {
+  Write-Host "[4/7] MySQL をインストールしています..."
+  choco install -y mysql
+  scoop install mysql-workbench
+}
+
 # Javaのインストール
+if (gcm java -ea SilentlyContinue) {
+  Write-Host "[5/7] Java はインストール済みです. このステップはスキップします."
+  Write-Host "[DEBUG] Javaのバージョンと環境変数JAVA_HOMEを確認します."
+  Write-Host "[DEBUG] Java version:"
+  java -version
+  Write-Host "[DEBUG] ENV JAVA_HOME:"
+  Write-Host "$env:JAVA_HOME"
+} else {
+  Write-Host "[5/7] Java をインストールしています..."
+  scoop install adopt8-hotspot
+  scoop install adopt11-hotspot
+}
+
 # Gradleのインストール
+if (gcm gradle -ea SilentlyContinue) {
+  Write-Host "[6/7] Gradle はインストール済みです. このステップはスキップします."
+  Write-Host "[DEBUG] Gradleのバージョンを確認します."
+  Write-Host "[DEBUG] Gradle version:"
+  gradle -version
+} else {
+  Write-Host "[6/7] Gradle をインストールしています..."
+  scoop install gradle # todo: Gradle 6.2.2にしないと…
+}
+
 # ログデータの送信
 Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
+Write-Host "[7/7] ログデータを送信しています..."
 
 Stop-Transcript
 
