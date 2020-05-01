@@ -67,6 +67,7 @@ Start-Transcript "$DefaultPath/$ID.log"
 # Javaのインストール
 # Gradleのインストール
 # ログデータの送信
+Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
 
 Stop-Transcript
 
