@@ -4,6 +4,15 @@
 
 **注意事項:** 本スクリプトファイルは実行結果をリモートに集計します。
 
+本スクリプトを使って以下のソフトウェアをインストールします。
+
+- Java 1.8 & Java 11
+- Gradle 6.2.2
+- MySQL 8.0
+- パッケージ管理ソフト
+  - Homebrew (macOS)
+  - chocolatey & Scoop (windows)
+
 ## for Windows
 
 Windows 10を利用している人向けの実行手順です。
@@ -94,7 +103,7 @@ macOSを利用している人向けの実行手順です。
 以下のコピーし、ターミナルに貼り付けて実行してください。
 
 ```bash
-curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/master/macOS/install.sh | sh -s
+curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/master/macOS/install.sh | bash -s
 ```
 
 #### 2.1. スクリプトの実行への同意
