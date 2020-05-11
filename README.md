@@ -8,11 +8,12 @@
 
 Windows 10を利用している人向けの実行手順です。
 
-### 1. PowerShellを管理者権限で実行  
-   PowerShellを管理者権限で起動します。  
-   管理者権限での起動方法は「スタート」で右クリックし「Windows PowerShell（管理者）」を選択します。
+### 1. PowerShellを管理者権限で実行
 
-   ![](https://raw.githubusercontent.com/HazeyamaLab/setup/master/windows/windows.gif)
+PowerShellを管理者権限で起動します。  
+管理者権限での起動方法は「スタート」で右クリックし「Windows PowerShell（管理者）」を選択します。
+
+![](https://raw.githubusercontent.com/HazeyamaLab/setup/master/windows/windows.gif)
 
 ### 2. PowerSehllスクリプトの実行ポリシーの変更
 
