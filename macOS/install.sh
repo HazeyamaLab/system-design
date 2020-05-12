@@ -22,9 +22,9 @@ readonly LOGO='-----------------------------------------------------------------
 function confirm_execution() {
   read -p ">> " input
 
-  if [ $input = 'y' ] || [ $input = 'Y' ]; then
+  if [ "$input" = 'y' ] || [ "$input" = 'Y' ]; then
     return 0
-  elif [ $input = 'n' ] || [ $input = 'N' ]; then
+  elif [ "$input" = 'n' ] || [ "$input" = 'N' ]; then
     echo "スクリプトを終了します."
     exit 1
   else
@@ -39,7 +39,7 @@ function confirm_student_id() {
   echo "例) a181401x"
   read -p ">> " ID
 
-  if [[ ! $ID =~ [a-z][0-9]{6}[a-z] ]]; then
+  if [[ ! "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
     echo "指定した形式で入力してください．"
     confirm_student_id
   else
@@ -79,7 +79,7 @@ echo "------------------------------------------------------------
 [INFO] ${DATE} User: ${ID}
 ------------------------------------------------------------
 ${OS_INFO}
-------------------------------------------------------------" >> $LOG_OUT
+------------------------------------------------------------" >> "$LOG_OUT"
 
 # Command Line Developper Toolsのインストール
 if which xcode-select >/dev/null 2>&1; then
@@ -101,7 +101,7 @@ fi
 if which mysql >/dev/null 2>&1; then
   echo "[3/6] MySQL はインストール済みです. このステップはスキップします."
   CURRENT_MYSQL_VERSION=$(mysql --version)
-  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> $LOG_OUT
+  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> "$LOG_OUT"
 else
   echo "[3/6] MySQL をインストール中です..."
   brew install mysql
@@ -111,8 +111,8 @@ fi
 if which java >/dev/null 2>&1; then
   echo "[4/6] Java はインストール済みです. このステップはスキップします."
   CURRENT_JAVA_VERSION=$(java -version 2>&1)
-  echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> $LOG_OUT
-  echo "[DEBUG] ENV JAVA_HOME:  ${JAVA_HOME}" >> $LOG_OUT
+  echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> "$LOG_OUT"
+  echo "[DEBUG] ENV JAVA_HOME:  ${JAVA_HOME}" >> "$LOG_OUT"
 else
   echo "[4/6] Java をインストール中です..."
   brew tap homebrew/cask
@@ -125,14 +125,14 @@ fi
 if which gradle >/dev/null 2>&1; then
   echo "[5/6] Gradle はインストール済みです. このステップはスキップします."
   CURRENT_GRADLE_VERSION=$(gradle -version)
-  echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> $LOG_OUT
+  echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 else
   echo "[5/6] Gradle をインストール中です..."
   install_gradle
 fi
 
 # ログデータの送信
-curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> $LOG_OUT
+curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> "$LOG_OUT"
 echo "[6/6] ログデータを送信しています..."
 
 echo "完了しました✨"
