@@ -70,7 +70,7 @@ confirm_student_id
 DEFAULT_PATH=$PWD
 FILE_NAME=$ID.log
 LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
-exec 2>&1 > >(tee -a $LOG_OUT)
+exec 2>&1 > >(tee -a "$LOG_OUT")
 
 # ログファイルの先頭に実行日時などを記載
 DATE=$(date +"%Y/%m/%d %T")
