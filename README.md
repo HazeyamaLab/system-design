@@ -103,7 +103,7 @@ macOSを利用している人向けの実行手順です。
 以下のコピーし、ターミナルに貼り付けて実行してください。
 
 ```bash
-curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/master/macOS/install.sh | bash -s
+bash <(curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/master/macOS/install.sh)
 ```
 
 #### 2.1. スクリプトの実行への同意

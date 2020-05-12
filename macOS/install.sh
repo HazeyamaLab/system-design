@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# システム設計の環境構築用
-
 readonly LOGO='------------------------------------------------------------------------
                     __                        __          _           
    _______  _______/ /____  ____ ___     ____/ /__  _____(_)___ _____ 
@@ -22,14 +20,10 @@ readonly LOGO='-----------------------------------------------------------------
 ##################################################
 # 実行確認関数
 function confirm_execution() {
-  read -p ">> " input
-
-  if [ -z $input ] ; then
-    echo "y または n を入力して下さい."
-    confirm_execution
-  elif [ $input = 'y' ] || [ $input = 'Y' ]; then
+  read -rp ">> " input
+  if [ "$input" = 'y' ] || [ "$input" = 'Y' ]; then
     return 0
-  elif [ $input = 'n' ] || [ $input = 'N' ]; then
+  elif [ "$input" = 'n' ] || [ "$input" = 'N' ]; then
     echo "スクリプトを終了します."
     exit 1
   else
@@ -40,16 +34,15 @@ function confirm_execution() {
 
 # 学籍番号確認関数
 function confirm_student_id() {
-  
   echo "学籍番号を入力してください．"
   echo "例) a181401x"
-  read -p ">> " ID
+  read -rp ">> " ID
 
-  if [[ ! $ID =~ [a-z][0-9]{6}[a-z] ]]; then
+  if [[ "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
+    return 0
+  else
     echo "指定した形式で入力してください．"
     confirm_student_id
-  else
-    return 0
   fi
 }
 
@@ -61,7 +54,6 @@ function install_gradle() {
   brew unlink gradle
   brew insatll gradle
 }
-
 
 ##################################################
 # main部分
@@ -77,7 +69,7 @@ confirm_student_id
 DEFAULT_PATH=$PWD
 FILE_NAME=$ID.log
 LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
-exec 2>&1 > >(tee -a $LOG_OUT)
+exec 2>&1 > >(tee -a "$LOG_OUT")
 
 # ログファイルの先頭に実行日時などを記載
 DATE=$(date +"%Y/%m/%d %T")
@@ -86,7 +78,7 @@ echo "------------------------------------------------------------
 [INFO] ${DATE} User: ${ID}
 ------------------------------------------------------------
 ${OS_INFO}
-------------------------------------------------------------" >> $LOG_OUT
+------------------------------------------------------------" >> "$LOG_OUT"
 
 # Command Line Developper Toolsのインストール
 if which xcode-select >/dev/null 2>&1; then
@@ -108,7 +100,7 @@ fi
 if which mysql >/dev/null 2>&1; then
   echo "[3/6] MySQL はインストール済みです. このステップはスキップします."
   CURRENT_MYSQL_VERSION=$(mysql --version)
-  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> $LOG_OUT
+  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> "$LOG_OUT"
 else
   echo "[3/6] MySQL をインストール中です..."
   brew install mysql
@@ -118,8 +110,8 @@ fi
 if which java >/dev/null 2>&1; then
   echo "[4/6] Java はインストール済みです. このステップはスキップします."
   CURRENT_JAVA_VERSION=$(java -version 2>&1)
-  echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> $LOG_OUT
-  echo "[DEBUG] ENV JAVA_HOME:  ${JAVA_HOME}" >> $LOG_OUT
+  echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> "$LOG_OUT"
+  echo "[DEBUG] ENV JAVA_HOME: ${JAVA_HOME}" >> "$LOG_OUT"
 else
   echo "[4/6] Java をインストール中です..."
   brew tap homebrew/cask
@@ -132,14 +124,14 @@ fi
 if which gradle >/dev/null 2>&1; then
   echo "[5/6] Gradle はインストール済みです. このステップはスキップします."
   CURRENT_GRADLE_VERSION=$(gradle -version)
-  echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> $LOG_OUT
+  echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 else
   echo "[5/6] Gradle をインストール中です..."
   install_gradle
 fi
 
 # ログデータの送信
-curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> $LOG_OUT
+curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams -F "file=@${LOG_OUT}" >> "$LOG_OUT"
 echo "[6/6] ログデータを送信しています..."
 
 echo "完了しました✨"
