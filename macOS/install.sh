@@ -20,31 +20,33 @@ readonly LOGO='-----------------------------------------------------------------
 ##################################################
 # 実行確認関数
 function confirm_execution() {
-  read -rp ">> " input
-
-  if [ "$input" = 'y' ] || [ "$input" = 'Y' ]; then
-    return 0
-  elif [ "$input" = 'n' ] || [ "$input" = 'N' ]; then
-    echo "スクリプトを終了します."
-    exit 1
-  else
-    echo "y または n を入力して下さい."
-    confirm_execution
-  fi
+  while read -rp ">> " input
+  do
+    if [ "$input" = 'y' ] || [ "$input" = 'Y' ]; then
+      return 0
+    elif [ "$input" = 'n' ] || [ "$input" = 'N' ]; then
+      echo "スクリプトを終了します."
+      exit 1
+    else
+      echo "y または n を入力して下さい."
+      confirm_execution
+    fi
+  done
 }
 
 # 学籍番号確認関数
 function confirm_student_id() {
   echo "学籍番号を入力してください．"
   echo "例) a181401x"
-  read -rp ">> " ID
-
-  if [[ ! "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
-    echo "指定した形式で入力してください．"
-    confirm_student_id
-  else
-    return 0
-  fi
+  while read -rp ">> " ID
+  do
+    if [[ ! "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
+      echo "指定した形式で入力してください．"
+      confirm_student_id
+    else
+      return 0
+    fi
+  done
 }
 
 # Gradleのインストール関数(6.3をインストール後に6.2.2にする)
