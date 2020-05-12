@@ -20,7 +20,7 @@ readonly LOGO='-----------------------------------------------------------------
 ##################################################
 # 実行確認関数
 function confirm_execution() {
-  read -p ">> " input
+  read -rp ">> " input
 
   if [ "$input" = 'y' ] || [ "$input" = 'Y' ]; then
     return 0
@@ -37,7 +37,7 @@ function confirm_execution() {
 function confirm_student_id() {
   echo "学籍番号を入力してください．"
   echo "例) a181401x"
-  read -p ">> " ID
+  read -rp ">> " ID
 
   if [[ ! "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
     echo "指定した形式で入力してください．"
