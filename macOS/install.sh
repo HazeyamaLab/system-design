@@ -112,7 +112,7 @@ if which java >/dev/null 2>&1; then
   echo "[4/6] Java はインストール済みです. このステップはスキップします."
   CURRENT_JAVA_VERSION=$(java -version 2>&1)
   echo "[DEBUG] Java version: ${CURRENT_JAVA_VERSION}" >> "$LOG_OUT"
-  echo "[DEBUG] ENV JAVA_HOME:  ${JAVA_HOME}" >> "$LOG_OUT"
+  echo "[DEBUG] ENV JAVA_HOME: ${JAVA_HOME}" >> "$LOG_OUT"
 else
   echo "[4/6] Java をインストール中です..."
   brew tap homebrew/cask
