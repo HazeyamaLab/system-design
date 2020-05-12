@@ -38,11 +38,11 @@ function confirm_student_id() {
   echo "例) a181401x"
   read -rp ">> " ID
 
-  if [[ ! "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
+  if [[ "$ID" =~ [a-z][0-9]{6}[a-z] ]]; then
+    return 0
+  else
     echo "指定した形式で入力してください．"
     confirm_student_id
-  else
-    return 0
   fi
 }
 
