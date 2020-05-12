@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# システム設計の環境構築用
-
 readonly LOGO='------------------------------------------------------------------------
                     __                        __          _           
    _______  _______/ /____  ____ ___     ____/ /__  _____(_)___ _____ 
@@ -24,10 +22,7 @@ readonly LOGO='-----------------------------------------------------------------
 function confirm_execution() {
   read -p ">> " input
 
-  if [ -z $input ] ; then
-    echo "y または n を入力して下さい."
-    confirm_execution
-  elif [ $input = 'y' ] || [ $input = 'Y' ]; then
+  if [ $input = 'y' ] || [ $input = 'Y' ]; then
     return 0
   elif [ $input = 'n' ] || [ $input = 'N' ]; then
     echo "スクリプトを終了します."
@@ -40,7 +35,6 @@ function confirm_execution() {
 
 # 学籍番号確認関数
 function confirm_student_id() {
-  
   echo "学籍番号を入力してください．"
   echo "例) a181401x"
   read -p ">> " ID
@@ -61,7 +55,6 @@ function install_gradle() {
   brew unlink gradle
   brew insatll gradle
 }
-
 
 ##################################################
 # main部分
