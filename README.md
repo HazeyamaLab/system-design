@@ -154,4 +154,4 @@ bash <(curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/mast
 
 ## Licence
 
-MIT
+![MIT](https://github.com/HazeyamaLab/system-design/blob/master/LICENSE)
