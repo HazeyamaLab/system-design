@@ -117,7 +117,7 @@ if (gcm gradle -ea SilentlyContinue) {
   gradle -version
 } else {
   Write-Host "[6/7] Gradle をインストールしています..."
-  scoop install gradle # todo: Gradle 6.2.2にしないと…
+  scoop install gradle@6.2.2
 }
 
 # ログデータの送信
