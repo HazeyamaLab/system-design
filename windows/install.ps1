@@ -120,10 +120,10 @@ if (gcm gradle -ea SilentlyContinue) {
   scoop install gradle@6.2.2
 }
 
+Stop-Transcript
+
 # ログデータの送信
 Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
 Write-Host "[7/7] ログデータを送信しています..."
-
-Stop-Transcript
 
 Write-Host "完了しました✨"
