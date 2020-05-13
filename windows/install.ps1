@@ -55,10 +55,8 @@ Write-Host "$LOGG"
 Confirm-Execution
 [string]$ID = Confirm-StudentID
 
-# ログ出力の設定
-# 実行のログファイルを作成しながら実行(Stop-Transcriptまでログファイルに記録)
+# ログファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
-Start-Transcript "$DefaultPath/$ID.log"
 
 # scoopのインストール
 if (gcm scoop -ea SilentlyContinue) {
@@ -84,11 +82,13 @@ if (gcm git -ea SilentlyContinue) {
   scoop install git
 }
 
+# scoopの設定(これにGitが必要)
+scoop bucket add extras
+scoop bucket add java
+
 # MySQLのインストール
 if (gcm mysql -ea SilentlyContinue) {
   Write-Host "[4/7] MySQL はインストール済みです. このステップはスキップします."
-  Write-Host "[DEBUG] MySQLのバージョンを確認します."
-  mysql --version
 } else {
   Write-Host "[4/7] MySQL をインストールしています..."
   choco install -y mysql
@@ -98,11 +98,6 @@ if (gcm mysql -ea SilentlyContinue) {
 # Javaのインストール
 if (gcm java -ea SilentlyContinue) {
   Write-Host "[5/7] Java はインストール済みです. このステップはスキップします."
-  Write-Host "[DEBUG] Javaのバージョンと環境変数JAVA_HOMEを確認します."
-  Write-Host "[DEBUG] Java version:"
-  java -version
-  Write-Host "[DEBUG] ENV JAVA_HOME:"
-  Write-Host "$env:JAVA_HOME"
 } else {
   Write-Host "[5/7] Java をインストールしています..."
   scoop install adopt8-hotspot
@@ -112,13 +107,26 @@ if (gcm java -ea SilentlyContinue) {
 # Gradleのインストール
 if (gcm gradle -ea SilentlyContinue) {
   Write-Host "[6/7] Gradle はインストール済みです. このステップはスキップします."
-  Write-Host "[DEBUG] Gradleのバージョンを確認します."
-  Write-Host "[DEBUG] Gradle version:"
-  gradle -version
 } else {
   Write-Host "[6/7] Gradle をインストールしています..."
   scoop install gradle@6.2.2
 }
+
+# インストール後の環境の情報をログファイルに記録
+Start-Transcript "$DefaultPath/$ID.log"
+
+Write-Host "[DEBUG] MySQLのバージョンを確認します."
+mysql --version
+
+Write-Host "[DEBUG] Javaのバージョンと環境変数JAVA_HOMEを確認します."
+Write-Host "[DEBUG] Java version:"
+java -version
+Write-Host "[DEBUG] ENV JAVA_HOME:"
+Write-Host "$env:JAVA_HOME"
+
+Write-Host "[DEBUG] Gradleのバージョンを確認します."
+Write-Host "[DEBUG] Gradle version:"
+gradle -version
 
 Stop-Transcript
 
