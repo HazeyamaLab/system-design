@@ -9,6 +9,7 @@
 - Java 1.8 & Java 11
 - Gradle 6.2.2
 - MySQL 8.0
+- Git for Windows (windows)
 - パッケージ管理ソフト
   - Homebrew (macOS)
   - chocolatey & Scoop (windows)
@@ -154,4 +155,4 @@ bash <(curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/mast
 
 ## Licence
 
-![MIT](https://github.com/HazeyamaLab/system-design/blob/master/LICENSE)
+[MIT](https://github.com/HazeyamaLab/system-design/blob/master/LICENSE)
