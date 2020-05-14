@@ -14,6 +14,8 @@
   - Homebrew (macOS)
   - chocolatey & Scoop (windows)
 
+---
+
 ## for Windows
 
 Windows 10を利用している人向けの実行手順です。
@@ -34,6 +36,8 @@ Windowsのデフォルトの設定ではPowerShellでのスクリプトの実行
 ```ps
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 ```
+
+実行すると「実行ポリシーを変更しますか？」と聞かれるので「y」を入力して、エンターキーを押してください。
 
 ### 3. 環境構築用のPowerShellスクリプトの実行
 
@@ -88,6 +92,8 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 ```
 
 **注意事項:** リモートに集計した実行結果から問題が起きてると判断した場合はこちらから個別に連絡します。
+
+---
 
 ## for macOS
 
@@ -152,6 +158,8 @@ bash <(curl -sf https://raw.githubusercontent.com/HazeyamaLab/system-design/mast
 ```
 
 **注意事項:** リモートに集計した実行結果から問題が起きてると判断した場合はこちらから個別に連絡します。
+
+---
 
 ## Licence
 
