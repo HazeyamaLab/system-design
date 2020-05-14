@@ -55,64 +55,68 @@ Write-Host "$LOGG"
 Confirm-Execution
 [string]$ID = Confirm-StudentID
 
-# ログファイルの作成に使用するので実行時のパスを取得
+# ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
 
 # scoopのインストール
 if (gcm scoop -ea SilentlyContinue) {
-  Write-Host "[1/7] scoop はインストール済みです. このステップはスキップします."
+  Write-Host "[1/8] scoop はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[1/7] scoop をインストールしています..."
+  Write-Host "[1/8] scoop をインストールしています..."
   Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 }
 
 # chocolateyのインストール
 if (gcm choco -ea SilentlyContinue) {
-  Write-Host "[2/7] chocolatey はインストール済みです. このステップはスキップします."
+  Write-Host "[2/8] chocolatey はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[2/7] chocolatey をインストールしています..."
+  Write-Host "[2/8] chocolatey をインストールしています..."
   Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
 # Gitのインストール
 if (gcm git -ea SilentlyContinue) {
-  Write-Host "[3/7] git はインストール済みです. このステップはスキップします."
+  Write-Host "[3/8] git はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[3/7] git をインストールしています..."
+  Write-Host "[3/8] git をインストールしています..."
   scoop install git
 }
 
 # scoopの設定(これにGitが必要)
+# todo: 条件分岐
 scoop bucket add extras
 scoop bucket add java
 
 # MySQLのインストール
 if (gcm mysql -ea SilentlyContinue) {
-  Write-Host "[4/7] MySQL はインストール済みです. このステップはスキップします."
-} else {
-  Write-Host "[4/7] MySQL をインストールしています..."
+  Write-Host "[4/8] MySQL はインストール済みです. このステップはスキップします."} else {
+  Write-Host "[4/8] MySQL をインストールしています..."
   choco install -y mysql
   scoop install mysql-workbench
 }
 
 # Javaのインストール
 if (gcm java -ea SilentlyContinue) {
-  Write-Host "[5/7] Java はインストール済みです. このステップはスキップします."
+  Write-Host "[5/8] Java はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[5/7] Java をインストールしています..."
+  Write-Host "[5/8] Java をインストールしています..."
   scoop install adopt8-hotspot
   scoop install adopt11-hotspot
 }
 
 # Gradleのインストール
 if (gcm gradle -ea SilentlyContinue) {
-  Write-Host "[6/7] Gradle はインストール済みです. このステップはスキップします."
+  Write-Host "[6/8] Gradle はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[6/7] Gradle をインストールしています..."
+  Write-Host "[6/8] Gradle をインストールしています..."
   scoop install gradle@6.2.2
 }
 
-# インストール後の環境の情報をログファイルに記録
+##################################################
+# 環境情報の取得
+##################################################
+Write-Host "[7/8] ソフトウェアのバージョンを確認しています..."
+
 Start-Transcript "$DefaultPath/$ID.log"
 
 Write-Host "[DEBUG] MySQLのバージョンを確認します."
@@ -131,7 +135,7 @@ gradle -version
 Stop-Transcript
 
 # ログデータの送信
+Write-Host "[8/8] ログデータを送信しています..."
 Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
-Write-Host "[7/7] ログデータを送信しています..."
 
 Write-Host "完了しました✨"
