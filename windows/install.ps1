@@ -83,9 +83,13 @@ if (gcm git -ea SilentlyContinue) {
 }
 
 # scoopの設定(これにGitが必要)
-# todo: 条件分岐
-scoop bucket add extras
-scoop bucket add java
+$BucketList = scoop bucket list
+if (!$BucketList.Contains("extras")) {
+  scoop bucket add extras
+}
+if (!$BucketList.Contains("java")) {
+  scoop bucket add java
+}
 
 # MySQLのインストール
 if (gcm mysql -ea SilentlyContinue) {
