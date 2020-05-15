@@ -102,6 +102,7 @@ if (gcm java -ea SilentlyContinue) {
   Write-Host "[5/8] Java をインストールしています..."
   scoop install adopt8-hotspot
   scoop install adopt11-hotspot
+  scoop reset adopt11-hotspot
 }
 
 # Gradleのインストール
@@ -118,6 +119,9 @@ if (gcm gradle -ea SilentlyContinue) {
 Write-Host "[7/8] ソフトウェアのバージョンを確認しています..."
 
 Start-Transcript "$DefaultPath/$ID.log"
+
+Write-Host "[DEBUG] Scoopでのインストール状況を確認します."
+scoop status
 
 Write-Host "[DEBUG] MySQLのバージョンを確認します."
 mysql --version
