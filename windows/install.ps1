@@ -59,7 +59,7 @@ Confirm-Execution
 [string]$DefaultPath = Convert-Path .
 
 # scoopのインストール
-if (gcm scoop -ea SilentlyContinue) {
+if (Get-Command scoop -ea SilentlyContinue) {
   Write-Host "[1/8] scoop はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[1/8] scoop をインストールしています..."
@@ -67,7 +67,7 @@ if (gcm scoop -ea SilentlyContinue) {
 }
 
 # chocolateyのインストール
-if (gcm choco -ea SilentlyContinue) {
+if (Get-Command choco -ea SilentlyContinue) {
   Write-Host "[2/8] chocolatey はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[2/8] chocolatey をインストールしています..."
@@ -75,7 +75,7 @@ if (gcm choco -ea SilentlyContinue) {
 }
 
 # Gitのインストール
-if (gcm git -ea SilentlyContinue) {
+if (Get-Command git -ea SilentlyContinue) {
   Write-Host "[3/8] git はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[3/8] git をインストールしています..."
@@ -92,7 +92,7 @@ if (!$BucketList.Contains("java")) {
 }
 
 # MySQLのインストール
-if (gcm mysql -ea SilentlyContinue) {
+if (Get-Command mysql -ea SilentlyContinue) {
   Write-Host "[4/8] MySQL はインストール済みです. このステップはスキップします."} else {
   Write-Host "[4/8] MySQL をインストールしています..."
   choco install -y mysql
@@ -100,7 +100,7 @@ if (gcm mysql -ea SilentlyContinue) {
 }
 
 # Javaのインストール
-if (gcm java -ea SilentlyContinue) {
+if (Get-Command java -ea SilentlyContinue) {
   Write-Host "[5/8] Java はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[5/8] Java をインストールしています..."
@@ -110,7 +110,7 @@ if (gcm java -ea SilentlyContinue) {
 }
 
 # Gradleのインストール
-if (gcm gradle -ea SilentlyContinue) {
+if (Get-Command gradle -ea SilentlyContinue) {
   Write-Host "[6/8] Gradle はインストール済みです. このステップはスキップします."
 } else {
   Write-Host "[6/8] Gradle をインストールしています..."
