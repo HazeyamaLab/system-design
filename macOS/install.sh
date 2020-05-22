@@ -65,6 +65,7 @@ echo "$LOGO"
 # 確認プロンプトの出力
 if [ "$SH_ENV" = "CI" ]; then
   ID="c000000i"
+  echo "Running at GitHub Actions"
 else
   confirm_execution
   confirm_student_id
