@@ -2,6 +2,7 @@
 
 $SH_ENV
 
+# shellcheck disable=SC208
 readonly LOGO='------------------------------------------------------------------------
                     __                        __          _           
    _______  _______/ /____  ____ ___     ____/ /__  _____(_)___ _____ 
@@ -51,7 +52,7 @@ function confirm_student_id() {
 # Gradleのインストール関数(6.3をインストール後に6.2.2にする)
 function install_gradle() {
   brew insatll gradle
-  cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/
+  cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/ || return
   git checkout 5fd374b706a7949f13fc20c654764c2ac5986e42 gradle.rb
   brew unlink gradle
   brew insatll gradle
