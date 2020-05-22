@@ -23,3 +23,9 @@ jobs:
     - name: Run macOS/install.sh
       working-directory: ./macOS
       run: SH_ENV=CI ./install.sh
+
+    - name: Upload result for macOS/install.sh
+      uses: actions/upload-artifact@v1
+      with:
+        name: Script Result
+        path: c000000i.log
