@@ -19,3 +19,7 @@ jobs:
     - name: Lint macOS/install.sh
       working-directory: ./macOS
       run: shellcheck install.sh
+
+    - name: Run macOS/install.sh
+      working-directory: ./macOS
+      run: SH_ENV=CI ./install.sh
