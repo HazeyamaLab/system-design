@@ -83,9 +83,13 @@ if (gcm git -ea SilentlyContinue) {
 }
 
 # scoopの設定(これにGitが必要)
-# todo: 条件分岐
-scoop bucket add extras
-scoop bucket add java
+$BucketList = scoop bucket list
+if (!$BucketList.Contains("extras")) {
+  scoop bucket add extras
+}
+if (!$BucketList.Contains("java")) {
+  scoop bucket add java
+}
 
 # MySQLのインストール
 if (gcm mysql -ea SilentlyContinue) {
@@ -102,6 +106,7 @@ if (gcm java -ea SilentlyContinue) {
   Write-Host "[5/8] Java をインストールしています..."
   scoop install adopt8-hotspot
   scoop install adopt11-hotspot
+  scoop reset adopt11-hotspot
 }
 
 # Gradleのインストール
@@ -118,6 +123,9 @@ if (gcm gradle -ea SilentlyContinue) {
 Write-Host "[7/8] ソフトウェアのバージョンを確認しています..."
 
 Start-Transcript "$DefaultPath/$ID.log"
+
+Write-Host "[DEBUG] Scoopでのインストール状況を確認します."
+scoop status
 
 Write-Host "[DEBUG] MySQLのバージョンを確認します."
 mysql --version
