@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Script Result
-        path: c000000i.log
+        path: macOS/c000000i.log
