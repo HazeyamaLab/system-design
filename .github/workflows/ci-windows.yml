@@ -1,0 +1,25 @@
+﻿name: windows
+
+on:
+  push:
+    paths:
+      - 'windows/**'
+
+jobs:
+  windows-test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+        working-directory: ./windows
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install package
+      run: |
+        Install-Module -Name PSScriptAnalyzer
+
+    - name: Lint windows/install.ps1
+      working-directory: ./windows
+      run:  Invoke-ScriptAnalyzer install.ps1
