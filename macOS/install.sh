@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$SH_ENV
+
 readonly LOGO='------------------------------------------------------------------------
                     __                        __          _           
    _______  _______/ /____  ____ ___     ____/ /__  _____(_)___ _____ 
@@ -62,8 +64,12 @@ function install_gradle() {
 echo "$LOGO"
 
 # 確認プロンプトの出力
-confirm_execution
-confirm_student_id
+if [ "$SH_ENV" = "CI" ]; then
+  ID="c000000i"
+else
+  confirm_execution
+  confirm_student_id
+fi
 
 # ファイル出力の設定
 DEFAULT_PATH=$PWD
@@ -142,7 +148,9 @@ CURRENT_GRADLE_VERSION=$(gradle -version)
 echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 
 # ログデータの送信
-echo "[7/7] ログデータを送信しています..."
-curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac -F "file=@${LOG_OUT}"
+if [ "$SH_ENV" != "CI" ]; then
+  echo "[7/7] ログデータを送信しています..."
+  curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac -F "file=@${LOG_OUT}"
+fi
 
 echo "完了しました✨"
