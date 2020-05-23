@@ -56,6 +56,7 @@ Write-Output "$LOGG"
 # 確認プロンプトの出力
 if ($ENV -eq "CI") {
   Write-Output "Running at GitHUb Actions"
+  [string]$ID = "windows-ci"
 } else {
   Confirm-Execution
   [string]$ID = Confirm-StudentID
