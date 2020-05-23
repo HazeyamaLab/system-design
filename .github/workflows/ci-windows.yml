@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'windows/**'
+      - '.github/workflows/ci-windows.yml'
 
 jobs:
   windows-test:
@@ -15,13 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install package
-      run: |
-        Install-Module -Name PSScriptAnalyzer
-
-    - name: Lint windows/install.ps1
-      run: Invoke-ScriptAnalyzer install.ps1
 
     - name: Run windows/install.ps1
       run: ./install.ps1
