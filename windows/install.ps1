@@ -136,13 +136,9 @@ scoop status
 Write-Host "[DEBUG] MySQLのバージョンを確認します."
 mysql --version
 
-Write-Host "[DEBUG] Javaのバージョンと環境変数JAVA_HOMEを確認します."
-Write-Host "[DEBUG] Java version:"
-java -version
+Write-Host "[DEBUG] JavaとGradleのバージョンと環境変数JAVA_HOMEを確認します."
 Write-Host "[DEBUG] ENV JAVA_HOME:"
 Write-Host "$env:JAVA_HOME"
-
-Write-Host "[DEBUG] Gradleのバージョンを確認します."
 Write-Host "[DEBUG] Gradle version:"
 gradle -version
 
