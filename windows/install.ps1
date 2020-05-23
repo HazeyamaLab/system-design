@@ -18,11 +18,11 @@
 ##################################################
 # 実行確認関数
 function Confirm-Execution {
-  $input = Read-Host ">> "
+  $i = Read-Host ">> "
 
-  if ($input -eq "y" -or $input -eq "Y"){
+  if ($i -eq "y" -or $i -eq "Y"){
     return
-  } elseif ($input -eq "n" -or $input -eq "N") {
+  } elseif ($i -eq "n" -or $i -eq "N") {
     Write-Output "スクリプトを終了します."
     exit 1
   } else {
@@ -35,10 +35,10 @@ function Confirm-Execution {
 function Confirm-StudentID {
   Write-Output "学籍番号を入力してください．"
   Write-Output "例) a181401x"
-  $input = Read-Host ">> "
+  $i = Read-Host ">> "
 
-  if ($input -match "[a-z][0-9]{6}[a-z]" ) {
-    return $input
+  if ($i -match "[a-z][0-9]{6}[a-z]" ) {
+    return $i
   } else {
     Write-Output "指定した形式で入力してください．"
     Confirm-StudentID
