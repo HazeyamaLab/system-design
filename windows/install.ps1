@@ -48,12 +48,18 @@ function Confirm-StudentID {
 ##################################################
 # main部分
 ##################################################
+[string]$ENV=$env:ENV
+
 # アスキーアートと説明の出力
 Write-Host "$LOGG"
 
 # 確認プロンプトの出力
-Confirm-Execution
-[string]$ID = Confirm-StudentID
+if ($ENV -eq "CI") {
+  Write-Host "Running at GitHUb Actions"
+} else {
+  Confirm-Execution
+  [string]$ID = Confirm-StudentID
+}
 
 # ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
@@ -143,7 +149,9 @@ gradle -version
 Stop-Transcript
 
 # ログデータの送信
-Write-Host "[8/8] ログデータを送信しています..."
-Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
+if($ENV -ne "ci") {
+  Write-Host "[8/8] ログデータを送信しています..."
+  Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
+}
 
 Write-Host "完了しました✨"
