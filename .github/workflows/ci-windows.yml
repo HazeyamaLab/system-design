@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: powershell
+        shell: pwsh
         working-directory: ./windows
 
     steps:
