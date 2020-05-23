@@ -4,10 +4,15 @@ on:
   push:
     paths:
       - 'macOS/**'
+      - 'github/workflows/ci-mac-os.ym'
 
 jobs:
   macos-test:
     runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./macOS
 
     steps:
     - uses: actions/checkout@v2
@@ -17,15 +22,15 @@ jobs:
         brew install shellcheck
 
     - name: Lint macOS/install.sh
-      working-directory: ./macOS
       run: shellcheck --exclude SC2016,SC1004 install.sh
 
     - name: Run macOS/install.sh
-      working-directory: ./macOS
-      run: SH_ENV=CI ./install.sh
+      run: ./install.sh
+      env:
+        ENV: CI
 
     - name: Upload result for macOS/install.sh
       uses: actions/upload-artifact@v1
       with:
         name: Script Result
-        path: macOS/c000000i.log
+        path: macOS/macOS-ci.log

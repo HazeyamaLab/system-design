@@ -63,8 +63,8 @@ function install_gradle() {
 echo "$LOGO"
 
 # 確認プロンプトの出力
-if [ "$SH_ENV" = "CI" ]; then
-  ID="c000000i"
+if [ "$ENV" = "CI" ]; then
+  ID="macOS-ci"
   echo "Running at GitHub Actions"
 else
   confirm_execution
@@ -148,7 +148,7 @@ CURRENT_GRADLE_VERSION=$(gradle -version)
 echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 
 # ログデータの送信
-if [ "$SH_ENV" != "CI" ]; then
+if [ "$ENV" != "CI" ]; then
   echo "[7/7] ログデータを送信しています..."
   curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac -F "file=@${LOG_OUT}"
 fi
