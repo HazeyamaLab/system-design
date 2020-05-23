@@ -21,5 +21,7 @@ jobs:
         Install-Module -Name PSScriptAnalyzer
 
     - name: Lint windows/install.ps1
-      working-directory: ./windows
-      run:  Invoke-ScriptAnalyzer install.ps1
+      run: Invoke-ScriptAnalyzer install.ps1
+
+    - name: Run windows/install.ps1
+      run: ./install.ps1
