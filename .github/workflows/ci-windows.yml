@@ -25,3 +25,5 @@ jobs:
 
     - name: Run windows/install.ps1
       run: ./install.ps1
+      env:
+        ENV: CI
