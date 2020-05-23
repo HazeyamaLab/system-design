@@ -23,24 +23,24 @@ function Confirm-Execution {
   if ($input -eq "y" -or $input -eq "Y"){
     return
   } elseif ($input -eq "n" -or $input -eq "N") {
-    Write-Host "スクリプトを終了します."
+    Write-Output "スクリプトを終了します."
     exit 1
   } else {
-    Write-Host "y または n を入力して下さい."
+    Write-Output "y または n を入力して下さい."
     Confirm-Execution
   }
 }
 
 # 学籍番号確認関数
 function Confirm-StudentID {
-  Write-Host "学籍番号を入力してください．"
-  Write-Host "例) a181401x"
+  Write-Output "学籍番号を入力してください．"
+  Write-Output "例) a181401x"
   $input = Read-Host ">> "
 
   if ($input -match "[a-z][0-9]{6}[a-z]" ) {
     return $input
   } else {
-    Write-Host "指定した形式で入力してください．"
+    Write-Output "指定した形式で入力してください．"
     Confirm-StudentID
   }
 }
@@ -51,11 +51,11 @@ function Confirm-StudentID {
 [string]$ENV=$env:ENV
 
 # アスキーアートと説明の出力
-Write-Host "$LOGG"
+Write-Output "$LOGG"
 
 # 確認プロンプトの出力
 if ($ENV -eq "CI") {
-  Write-Host "Running at GitHUb Actions"
+  Write-Output "Running at GitHUb Actions"
 } else {
   Confirm-Execution
   [string]$ID = Confirm-StudentID
@@ -66,25 +66,25 @@ if ($ENV -eq "CI") {
 
 # scoopのインストール
 if (Get-Command scoop -ea SilentlyContinue) {
-  Write-Host "[1/8] scoop はインストール済みです. このステップはスキップします."
+  Write-Output "[1/8] scoop はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[1/8] scoop をインストールしています..."
+  Write-Output "[1/8] scoop をインストールしています..."
   Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 }
 
 # chocolateyのインストール
 if (Get-Command choco -ea SilentlyContinue) {
-  Write-Host "[2/8] chocolatey はインストール済みです. このステップはスキップします."
+  Write-Output "[2/8] chocolatey はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[2/8] chocolatey をインストールしています..."
-  Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+  Write-Output "[2/8] chocolatey をインストールしています..."
+  Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
 # Gitのインストール
 if (Get-Command git -ea SilentlyContinue) {
-  Write-Host "[3/8] git はインストール済みです. このステップはスキップします."
+  Write-Output "[3/8] git はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[3/8] git をインストールしています..."
+  Write-Output "[3/8] git をインストールしています..."
   scoop install git
 }
 
@@ -99,17 +99,17 @@ if (!$BucketList.Contains("java")) {
 
 # MySQLのインストール
 if (Get-Command mysql -ea SilentlyContinue) {
-  Write-Host "[4/8] MySQL はインストール済みです. このステップはスキップします."} else {
-  Write-Host "[4/8] MySQL をインストールしています..."
+  Write-Output "[4/8] MySQL はインストール済みです. このステップはスキップします."} else {
+  Write-Output "[4/8] MySQL をインストールしています..."
   choco install -y mysql
   scoop install mysql-workbench
 }
 
 # Javaのインストール
 if (Get-Command java -ea SilentlyContinue) {
-  Write-Host "[5/8] Java はインストール済みです. このステップはスキップします."
+  Write-Output "[5/8] Java はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[5/8] Java をインストールしています..."
+  Write-Output "[5/8] Java をインストールしています..."
   scoop install adopt8-hotspot
   scoop install adopt11-hotspot
   scoop reset adopt11-hotspot
@@ -117,37 +117,37 @@ if (Get-Command java -ea SilentlyContinue) {
 
 # Gradleのインストール
 if (Get-Command gradle -ea SilentlyContinue) {
-  Write-Host "[6/8] Gradle はインストール済みです. このステップはスキップします."
+  Write-Output "[6/8] Gradle はインストール済みです. このステップはスキップします."
 } else {
-  Write-Host "[6/8] Gradle をインストールしています..."
+  Write-Output "[6/8] Gradle をインストールしています..."
   scoop install gradle@6.2.2
 }
 
 ##################################################
 # 環境情報の取得
 ##################################################
-Write-Host "[7/8] ソフトウェアのバージョンを確認しています..."
+Write-Output "[7/8] ソフトウェアのバージョンを確認しています..."
 
 Start-Transcript "$DefaultPath/$ID.log"
 
-Write-Host "[DEBUG] Scoopでのインストール状況を確認します."
+Write-Output "[DEBUG] Scoopでのインストール状況を確認します."
 scoop status
 
-Write-Host "[DEBUG] MySQLのバージョンを確認します."
+Write-Output "[DEBUG] MySQLのバージョンを確認します."
 mysql --version
 
-Write-Host "[DEBUG] JavaとGradleのバージョンと環境変数JAVA_HOMEを確認します."
-Write-Host "[DEBUG] ENV JAVA_HOME:"
-Write-Host "$env:JAVA_HOME"
-Write-Host "[DEBUG] Gradle version:"
+Write-Output "[DEBUG] JavaとGradleのバージョンと環境変数JAVA_HOMEを確認します."
+Write-Output "[DEBUG] ENV JAVA_HOME:"
+Write-Output "$env:JAVA_HOME"
+Write-Output "[DEBUG] Gradle version:"
 gradle -version
 
 Stop-Transcript
 
 # ログデータの送信
 if($ENV -ne "ci") {
-  Write-Host "[8/8] ログデータを送信しています..."
+  Write-Output "[8/8] ログデータを送信しています..."
   Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
 }
 
-Write-Host "完了しました✨"
+Write-Output "完了しました✨"
