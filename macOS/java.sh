@@ -16,6 +16,7 @@ export JAVA_HOME=${JAVA_HOME}
 PATH=${JAVA_HOME}/bin:${PATH}
 EOF
 
+# shellcheck disable=SC1091
 source ~/.bashrc
 
 java -version
