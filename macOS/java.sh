@@ -1,4 +1,4 @@
-﻿# !/bin/bash
+# !/bin/bash
 
 brew tap homebrew/cask
 brew tap AdoptOpenJDK/openjdk
