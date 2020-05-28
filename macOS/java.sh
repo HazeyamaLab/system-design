@@ -12,7 +12,7 @@ echo "JAVA_HOMEの設定を行います..."
 JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 cat <<EOF >> ~/.bashrc
-export JAVA_HOME=`${JAVA_HOME}`
+export JAVA_HOME=${JAVA_HOME}
 PATH=${JAVA_HOME}/bin:${PATH}
 EOF
 
