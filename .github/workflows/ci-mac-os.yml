@@ -24,10 +24,16 @@ jobs:
     - name: Lint macOS/install.sh
       run: shellcheck --exclude SC2016,SC1004 install.sh
 
+    - name: Lint macOS/java.sh
+      run: shellcheck java.sh
+
     - name: Run macOS/install.sh
       run: ./install.sh
       env:
         ENV: CI
+
+    - name: Run macOS/java.sh
+      run: ./java.sh
 
     - name: Upload result for macOS/install.sh
       uses: actions/upload-artifact@v1
