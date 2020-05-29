@@ -19,6 +19,9 @@ jobs:
 
     - name: Install package
       run: choco install psscriptanalyzer
+    
+    - name: Install scoop
+      run: Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
     - name: Lint windows/install.ps1
       run: Invoke-ScriptAnalyzer -Path ./install.ps1 -ExcludeRule PSAvoidUsingInvokeExpression,PSUseBOMForUnicodeEncodedFile,PSAvoidTrailingWhitespace
