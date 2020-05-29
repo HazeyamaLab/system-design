@@ -28,6 +28,9 @@ jobs:
       env:
         ENV: CI
 
+    - name: Install scoop
+      run: Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+
     - name: Run windows/java.ps1
       run: .\java.ps1
 
