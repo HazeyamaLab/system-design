@@ -72,59 +72,68 @@ else
 fi
 
 # ファイル出力の設定
+export LANG=ja_JP.UTF-8
 DEFAULT_PATH=$PWD
 FILE_NAME=$ID.log
 LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
 
 # Command Line Developper Toolsのインストール
 if which xcode-select >/dev/null 2>&1; then
-  echo "[1/7] xcode-select はインストール済みです. このステップはスキップします."
+  echo "[1/8] xcode-select はインストール済みです. このステップはスキップします."
 else
-  echo "[1/7] xcode-select をインストール中です."
+  echo "[1/8] xcode-select をインストール中です."
   xcode-select --install
 fi
 
 # Homebrewのインストール
 if which brew >/dev/null 2>&1; then
-  echo "[2/7] homebrew はインストール済みです. このステップはスキップします."
+  echo "[2/8] homebrew はインストール済みです. このステップはスキップします."
 else
-  echo "[2/7] homebrew をインストール中です..."
+  echo "[2/8] homebrew をインストール中です..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # MySQLのインストール
 if which mysql >/dev/null 2>&1; then
-  echo "[3/7] MySQL はインストール済みです. このステップはスキップします."
+  echo "[3/8] MySQL はインストール済みです. このステップはスキップします."
   CURRENT_MYSQL_VERSION=$(mysql --version)
   echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> "$LOG_OUT"
 else
-  echo "[3/7] MySQL をインストール中です..."
+  echo "[3/8] MySQL をインストール中です..."
   brew install mysql
 fi
 
 # Javaのインストール
 if which java >/dev/null 2>&1; then
-  echo "[4/7] Java はインストール済みです. このステップはスキップします."
+  echo "[4/8] Java はインストール済みです. このステップはスキップします."
 else
-  echo "[4/7] Java をインストール中です..."
+  echo "[4/8] Java をインストール中です..."
   brew tap homebrew/cask
   brew tap AdoptOpenJDK/openjdk
-  brew cask adoptopenjdk/openjdk/adoptopenjdk8
-  brew cask adoptopenjdk11
+  brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+  brew cask install adoptopenjdk11
 fi
 
 # Gradleのインストール
 if which gradle >/dev/null 2>&1; then
-  echo "[5/7] Gradle はインストール済みです. このステップはスキップします."
+  echo "[5/8] Gradle はインストール済みです. このステップはスキップします."
 else
-  echo "[5/7] Gradle をインストール中です..."
+  echo "[5/8] Gradle をインストール中です..."
   install_gradle
+fi
+
+# plantUMLのためにgraphvizをインストールする
+if which dot >/dev/null 2>&1; then
+  echo "[6/8] 依存するパッケージをインストールします..."
+else
+  echo "[6/8] 依存するパッケージをインストールします..."
+  brew install graphviz
 fi
 
 ##################################################
 # 環境情報の取得
 ##################################################
-echo "[6/7] ソフトウェアのバージョンを確認しています..."
+echo "[7/8] ソフトウェアのバージョンを確認しています..."
 
 DATE=$(date +"%Y/%m/%d %T")
 OS_INFO=$(sw_vers)
@@ -149,7 +158,7 @@ echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 
 # ログデータの送信
 if [ "$ENV" != "CI" ]; then
-  echo "[7/7] ログデータを送信しています..."
+  echo "[8/8] ログデータを送信しています..."
   curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac -F "file=@${LOG_OUT}"
 fi
 
