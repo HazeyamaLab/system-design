@@ -81,20 +81,27 @@ if (Get-Command choco -ea SilentlyContinue) {
   Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
+Write-Output "[3/8] 依存するパッケージをインストールしています..."
 # Gitのインストール
-if (Get-Command git -ea SilentlyContinue) {
-  Write-Output "[3/8] git はインストール済みです. このステップはスキップします."
-} else {
-  Write-Output "[3/8] git をインストールしています..."
+if (Get-Command git -ne SilentlyContinue) {
+  Write-Output "git をインストールしています..."
   scoop install git
+}
+
+# graphvizのインストール
+if (Get-Command dot -ne SilentlyContinue) {
+  Write-Output "graphviz をインストールしています..."
+  scoop install graphviz
 }
 
 # scoopの設定(これにGitが必要)
 $BucketList = scoop bucket list
 if (!$BucketList.Contains("extras")) {
+  Write-Output "scoop の extras bucket を追加しています..."
   scoop bucket add extras
 }
 if (!$BucketList.Contains("java")) {
+  Write-Output "scoop の java bucket を追加しています..."
   scoop bucket add java
 }
 
