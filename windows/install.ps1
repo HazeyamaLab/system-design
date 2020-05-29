@@ -146,7 +146,7 @@ gradle -version
 Stop-Transcript
 
 # ログデータの送信
-if($ENV -ne "ci") {
+if ($ENV -ne "ci") {
   Write-Output "[8/8] ログデータを送信しています..."
   Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
 }
