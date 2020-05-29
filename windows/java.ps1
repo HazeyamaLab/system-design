@@ -16,3 +16,8 @@ scoop reset adopt11-hotspot
 
 Write-Output "変更後のJAVA_HOMEを確認します..."
 Write-Output $ENV:JAVA_HOME
+
+# Gradleのインストール
+scoop install gradle@6.2.2
+
+gradle -version

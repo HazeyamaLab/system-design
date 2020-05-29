@@ -1,4 +1,4 @@
-﻿name: windows
+﻿name: windows-java
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - '.github/workflows/ci-windows-java.yml'
 
 jobs:
-  windows-test:
+  windows-java-update-test:
     runs-on: windows-latest
     defaults:
       run:
