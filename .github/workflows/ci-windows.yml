@@ -28,6 +28,9 @@ jobs:
       env:
         ENV: CI
 
+    - name: Run windows/java.ps1
+      run: .\java.ps1
+
     - name: Upload result for windows/install.sh
       uses: actions/upload-artifact@v1
       with:
