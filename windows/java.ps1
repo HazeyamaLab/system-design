@@ -2,7 +2,7 @@
 Write-Output $ENV:JAVA_HOME
 
 # scoopのインストール
-if (Get-Command scoop -ne SilentlyContinue) {
+if (!(Get-Command scoop -ea SilentlyContinue)) {
   Write-Output "[1/8] scoop をインストールしています..."
   Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
   scoop bucket add java

@@ -83,13 +83,13 @@ if (Get-Command choco -ea SilentlyContinue) {
 
 Write-Output "[3/8] 依存するパッケージをインストールしています..."
 # Gitのインストール
-if (Get-Command git -ne SilentlyContinue) {
+if (!(Get-Command git -ea SilentlyContinue)) {
   Write-Output "git をインストールしています..."
   scoop install git
 }
 
 # graphvizのインストール
-if (Get-Command dot -ne SilentlyContinue) {
+if (!(Get-Command dot -ea SilentlyContinue)) {
   Write-Output "graphviz をインストールしています..."
   scoop install graphviz
 }
@@ -107,7 +107,8 @@ if (!$BucketList.Contains("java")) {
 
 # MySQLのインストール
 if (Get-Command mysql -ea SilentlyContinue) {
-  Write-Output "[4/8] MySQL はインストール済みです. このステップはスキップします."} else {
+  Write-Output "[4/8] MySQL はインストール済みです. このステップはスキップします."
+  } else {
   Write-Output "[4/8] MySQL をインストールしています..."
   choco install -y mysql
   scoop install mysql-workbench
