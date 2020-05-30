@@ -1,6 +1,11 @@
 # 情報システム設計
 
+![](https://github.com/HazeyamaLab/system-design/workflows/windows/badge.svg)
+![](https://github.com/HazeyamaLab/system-design/workflows/macOS/badge.svg)
+
 東京学芸大学「情報システム設計」の環境構築用のスクリプトです。
+
+情報システム設計のシラバスのリンクは[こちら](http://tgusyl.u-gakugei.ac.jp/ext_syllabus/referenceDirect.do?nologin=on&subjectID=237100002507&formatCD=1)
 
 **注意事項:** 本スクリプトファイルは実行結果をリモートに集計します。
 
