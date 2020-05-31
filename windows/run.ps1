@@ -65,12 +65,9 @@ if ($ENV -eq "CI") {
 # ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
 
-Start-Transcript "$DefaultPath/$ID.log"
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
+gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
-gradle tomcatRun -i
-
-Stop-Transcript
 # ログデータの送信
 if ($ENV -ne "ci") {
   Write-Output "[2/2] ログデータを送信しています..."
