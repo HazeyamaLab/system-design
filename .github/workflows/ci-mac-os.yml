@@ -35,6 +35,9 @@ jobs:
     - name: Run macOS/java.sh
       run: ./java.sh
 
+    - name: Run macOS/mysql.sh
+      run: ./mysql.sh
+
     - name: Upload result for macOS/install.sh
       uses: actions/upload-artifact@v1
       with:

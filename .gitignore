@@ -58,3 +58,10 @@ $RECYCLE.BIN/
 
 # log datas
 *.log
+
+# sql, dump file
+*.sql
+*.dump
+
+# direnv
+.envrc
