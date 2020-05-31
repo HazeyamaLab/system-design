@@ -6,7 +6,7 @@ if (Get-Command choco -ea SilentlyContinue) {
 }
 
 $PATH = [Environment]::GetEnvironmentVariable('PATH', 'Machine')
-$PATH += ";" + 'C:\tools\mysql\current\bin\mysql.exe'
+$PATH += ";" + 'C:\tools\mysql\current\bin'
 [Environment]::SetEnvironmentVariable('PATH', $PATH, 'Machine')
 
 mysql --version
