@@ -25,3 +25,6 @@ jobs:
 
     - name: Run windows/mysql.ps1
       run: (iwr -useb https://raw.githubusercontent.com/HazeyamaLab/system-design/master/windows/mysql.ps1).content | iex
+
+    - name: Echo MySQL version
+      run: mysql --version

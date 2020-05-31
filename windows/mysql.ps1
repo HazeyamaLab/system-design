@@ -5,7 +5,6 @@ if (Get-Command choco -ea SilentlyContinue) {
   choco install -y mysql
 }
 
-
 $PATH = [Environment]::GetEnvironmentVariable('PATH', 'Machine')
 $PATH += ";" + 'C:\tools\mysql'
 [Environment]::SetEnvironmentVariable('PATH', $PATH, 'Machine')
