@@ -33,14 +33,14 @@ function Confirm-Execution {
 
 # 学籍番号確認関数
 function Confirm-StudentID {
-  Write-Output "学籍番号を入力してください．"
-  Write-Output "例) a181401x"
+  Write-Host "学籍番号を入力してください．"
+  Write-Host "例) a181401x"
   $i = Read-Host ">> "
 
   if ($i -match "[a-z][0-9]{6}[a-z]" ) {
     return $i
   } else {
-    Write-Output "指定した形式で入力してください．"
+    Write-Host "指定した形式で入力してください．"
     Confirm-StudentID
   }
 }
@@ -55,7 +55,7 @@ Write-Output "$LOGG"
 
 # 確認プロンプトの出力
 if ($ENV -eq "CI") {
-  Write-Output "Running at GitHUb Actions"
+  Write-Output "Running at GitHub Actions"
   [string]$ID = "windows-ci"
 } else {
   Confirm-Execution
@@ -156,7 +156,7 @@ Stop-Transcript
 # ログデータの送信
 if ($ENV -ne "ci") {
   Write-Output "[8/8] ログデータを送信しています..."
-  Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams
+  Invoke-WebRequest -Method Post -InFile "$DefaultPath/$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/send-teams?name="$ID.log"
 }
 
 Write-Output "完了しました✨"
