@@ -1,0 +1,27 @@
+﻿name: windows-mysql
+
+on:
+  push:
+    paths:
+      - 'windows/mysql.ps1'
+      - '.github/workflows/ci-windows-mysql.yml'
+
+jobs:
+  windows-mysql-update-test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ./windows
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install package
+      run: choco install psscriptanalyzer
+
+    - name: Lint windows/mysql.ps1
+      run: Invoke-ScriptAnalyzer -Path ./mysql.ps1 -ExcludeRule PSAvoidUsingInvokeExpression,PSUseBOMForUnicodeEncodedFile
+
+    - name: Run windows/mysql.ps1
+      run: (iwr -useb https://raw.githubusercontent.com/HazeyamaLab/system-design/master/windows/mysql.ps1).content | iex
