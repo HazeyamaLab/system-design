@@ -1,4 +1,3 @@
-$OutputEncoding = [Text.Encoding]::UTF8
 [string]$LOGG='------------------------------------------------------------------------
                     __                        __          _           
    _______  _______/ /____  ____ ___     ____/ /__  _____(_)___ _____ 
@@ -70,7 +69,7 @@ Start-Transcript "$DefaultPath/$ID.log"
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
 Stop-Transcript
 
-gradle tomcatRun -i >> "$DefaultPath/$ID.log"
+gradle tomcatRun >> "$DefaultPath/$ID.log"
 
 # ログデータの送信
 if ($ENV -ne "ci") {
