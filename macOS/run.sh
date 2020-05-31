@@ -48,7 +48,7 @@ function confirm_student_id() {
 # main
 #########
 echo "$LOGO"
-
+ID="$MY_UNIVERSITY_ID"
 # 確認プロンプトの出力
 if [ "$ENV" = "CI" ]; then
   ID="macOS-ci"
@@ -60,7 +60,7 @@ fi
 # ファイル出力の設定
 # export LANG=ja_JP.UTF-8
 DEFAULT_PATH=$PWD
-FILE_NAME=$MY_UNIVERSITY_ID.log
+FILE_NAME=$ID.log
 LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
 
 if [ -e $LOG_OUT ]; then
@@ -72,7 +72,7 @@ touch $LOG_OUT
 DATE=$(date +"%Y/%m/%d %T")
 OS_INFO=$(sw_vers)
 echo "------------------------------------------------------------
-[INFO] ${DATE} User: ${MY_UNIVERSITY_ID}
+[INFO] ${DATE} User: ${ID}
 ------------------------------------------------------------" >> "$LOG_OUT"
 
 echo "[1/2] gradle tomcatRun を実行中です."
