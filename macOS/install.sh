@@ -96,8 +96,6 @@ fi
 # MySQLのインストール
 if which mysql >/dev/null 2>&1; then
   echo "[3/8] MySQL はインストール済みです. このステップはスキップします."
-  CURRENT_MYSQL_VERSION=$(mysql --version)
-  echo "[DEBUG] MySQL version: ${CURRENT_MYSQL_VERSION}" >> "$LOG_OUT"
 else
   echo "[3/8] MySQL をインストール中です..."
   brew install mysql
@@ -159,7 +157,7 @@ echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 # ログデータの送信
 if [ "$ENV" != "CI" ]; then
   echo "[8/8] ログデータを送信しています..."
-  curl -fsSL -X POST https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac -F "file=@${LOG_OUT}"
+  curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}"  https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac?name="${FILE_NAME}"
 fi
 
 echo "完了しました✨"
