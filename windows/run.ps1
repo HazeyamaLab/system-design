@@ -69,6 +69,7 @@ Start-Transcript "$DefaultPath/$ID.log"
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
 Stop-Transcript
 
+$OutputEncoding='utf-8'
 gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
 # ログデータの送信
