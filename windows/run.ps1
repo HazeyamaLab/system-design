@@ -67,13 +67,14 @@ if ($ENV -eq "CI") {
 
 Start-Transcript "$DefaultPath/$ID.log"
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
+
+gradle tomcatRun -i
+
 Stop-Transcript
-
-gradle tomcatRun >> "$DefaultPath/$ID.log"
-
 # ログデータの送信
 if ($ENV -ne "ci") {
   Write-Output "[2/2] ログデータを送信しています..."
   Invoke-WebRequest -Method Post -InFile "$DefaultPath\$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/tomcat-run?name="$ID.log"
 }
+
 Write-Output "完了しました✨"
