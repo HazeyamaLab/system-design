@@ -55,15 +55,13 @@ if [ "$ENV" = "CI" ]; then
   echo "Running at GitHub Actions"
 else
   confirm_execution
-  confirm_student_id
 fi
 
 # ファイル出力の設定
 # export LANG=ja_JP.UTF-8
 DEFAULT_PATH=$PWD
-FILE_NAME=$ID.log
+FILE_NAME=$MY_UNIVERSITY_ID.log
 LOG_OUT="${DEFAULT_PATH}/${FILE_NAME}"
-
 
 if [ -e $LOG_OUT ]; then
   rm $LOG_OUT
@@ -74,13 +72,12 @@ touch $LOG_OUT
 DATE=$(date +"%Y/%m/%d %T")
 OS_INFO=$(sw_vers)
 echo "------------------------------------------------------------
-[INFO] ${DATE} User: ${ID}
+[INFO] ${DATE} User: ${MY_UNIVERSITY_ID}
 ------------------------------------------------------------" >> "$LOG_OUT"
 
 echo "[1/2] gradle tomcatRun を実行中です."
 gradle tR -i >>  "$LOG_OUT"
 echo "[2/2] 実行ログを送信しています．"
 curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}"  https://hazelab-logger.netlify.app/.netlify/functions/tomcat-run?name="${FILE_NAME}"
-# curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}"  http://localhost:9000/.netlify/functions/tomcat-run?name="${FILE_NAME}"
 
 echo "完了しました✨"
