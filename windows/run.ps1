@@ -67,9 +67,9 @@ if ($ENV -eq "CI") {
 
 Start-Transcript "$DefaultPath/$ID.log"
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
-gradle tomcatRun -i
-
 Stop-Transcript
+
+gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
 # ログデータの送信
 if ($ENV -ne "ci") {
