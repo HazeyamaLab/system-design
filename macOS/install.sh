@@ -157,7 +157,7 @@ echo "[DEBUG] Gradle version: ${CURRENT_GRADLE_VERSION}" >> "$LOG_OUT"
 # ログデータの送信
 if [ "$ENV" != "CI" ]; then
   echo "[8/8] ログデータを送信しています..."
-  curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}"  https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac?name="${FILE_NAME}"
+  curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}" https://hazelab-logger.netlify.app/.netlify/functions/send-teams-from-mac?name="${FILE_NAME}"
 fi
 
 echo "完了しました✨"
