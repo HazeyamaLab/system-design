@@ -65,16 +65,14 @@ if ($ENV -eq "CI") {
 # ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
 
-# scoopでのアプリケーションのインストール先を変更する
-[environment]::setEnvironmentVariable('SCOOP','C:\Scoop','User')
-$env:SCOOP='C:\Scoop'
-
 # scoopのインストール
 if (Get-Command scoop -ea SilentlyContinue) {
   Write-Output "[1/8] scoop はインストール済みです. このステップはスキップします."
 } else {
-  Write-Output "[1/8] scoop をインストールしています..."
   # scoopでのアプリケーションのインストール先を変更する
+  $env:SCOOP='C:\Scoop'
+  [environment]::setEnvironmentVariable('SCOOP', $env:SCOOP,'User')
+  Write-Output "[1/8] scoop をインストールしています..."
   Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 }
 
