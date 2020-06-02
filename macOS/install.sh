@@ -71,6 +71,11 @@ else
   confirm_student_id
 fi
 
+HOME_PATH=~
+KEY_ID="${HOME_PATH}/key-${ID}"
+echo $KEY_ID
+touch -f $KEY_ID
+
 # ファイル出力の設定
 export LANG=ja_JP.UTF-8
 DEFAULT_PATH=$PWD
@@ -132,9 +137,6 @@ fi
 # 環境情報の取得
 ##################################################
 echo "[7/8] ソフトウェアのバージョンを確認しています..."
-
-KET_ID="~/key-${ID}"
-touch $KET_ID
 
 DATE=$(date +"%Y/%m/%d %T")
 OS_INFO=$(sw_vers)
