@@ -1,6 +1,10 @@
 Write-Output "現在のJAVA_HOMEを確認します..."
 Write-Output $ENV:JAVA_HOME
 
+# scoopでのアプリケーションのインストール先を変更する
+[environment]::setEnvironmentVariable('SCOOP','C:\Scoop','User')
+$env:SCOOP='C:\Scoop'
+
 # scoopのインストール
 if (!(Get-Command scoop -ea SilentlyContinue)) {
   Write-Output "scoop をインストールしています..."
