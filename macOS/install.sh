@@ -61,7 +61,6 @@ function install_gradle() {
 ##################################################
 # アスキーアートと説明の出力
 echo "$LOGO"
-
 # 確認プロンプトの出力
 if [ "$ENV" = "CI" ]; then
   ID="macOS-ci"
