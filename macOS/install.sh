@@ -71,9 +71,8 @@ else
   confirm_student_id
 fi
 
-HOME_PATH=~
-KEY_ID="${HOME_PATH}/key-${ID}"
-touch -f $KEY_ID
+# 学籍番号の確認のためのファイルの作成
+touch "${HOME}/key-${ID}"
 
 # ファイル出力の設定
 export LANG=ja_JP.UTF-8
