@@ -73,7 +73,6 @@ fi
 
 HOME_PATH=~
 KEY_ID="${HOME_PATH}/key-${ID}"
-echo $KEY_ID
 touch -f $KEY_ID
 
 # ファイル出力の設定

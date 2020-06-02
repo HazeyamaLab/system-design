@@ -55,6 +55,7 @@ if [ "$ENV" = "CI" ]; then
 else
   confirm_execution
 fi
+HOME_PATH=~
 
 # 環境変数の有無
 ID=""
@@ -62,11 +63,11 @@ for file in `\find ~ -maxdepth 1 -type f -regex ".*key-.*"`; do
   ID=`echo $file | rev | cut -c 1-8 | rev`
 done
 
-if [ ${#ID} = 8 ]; then
-    echo "$ID"
-else
+if [ ${#ID} != 8 ]; then
     echo "学籍番号が認識できないので入力してください．"
     confirm_student_id
+    KEY_ID="${HOME_PATH}/key-${ID}"
+    touch -f $KEY_ID
 fi
 
 # ファイル出力の設定
