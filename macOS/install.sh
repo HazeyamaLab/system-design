@@ -61,7 +61,6 @@ function install_gradle() {
 ##################################################
 # アスキーアートと説明の出力
 echo "$LOGO"
-
 # 確認プロンプトの出力
 if [ "$ENV" = "CI" ]; then
   ID="macOS-ci"
@@ -70,6 +69,9 @@ else
   confirm_execution
   confirm_student_id
 fi
+
+# 学籍番号の確認のためのファイルの作成
+touch "${HOME}/key-${ID}"
 
 # ファイル出力の設定
 export LANG=ja_JP.UTF-8
