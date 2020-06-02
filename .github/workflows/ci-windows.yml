@@ -3,7 +3,7 @@ name: windows
 on:
   push:
     paths:
-      - 'windows/**'
+      - 'windows/install.ps1'
       - '.github/workflows/ci-windows.yml'
 
 jobs:
