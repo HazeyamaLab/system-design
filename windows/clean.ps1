@@ -1,4 +1,4 @@
 # Scoopでインストールしたソフトウェアの削除とScoopのアンインストールを行う
 scoop uninstall scoop
 
-Remove-Item "$HOEM\scoop\*" -Recurse
+Remove-Item -Force -Recurse -Path "$HOEM\scoop\**"
