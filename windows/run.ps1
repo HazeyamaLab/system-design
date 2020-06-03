@@ -67,8 +67,8 @@ if($ID.Length -ne 12){
 [string]$DefaultPath = Convert-Path .
 
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
-gradle tomcatRun -i >> "$DefaultPath/$ID.log"
-
+gradle tomcatRun -i > "$DefaultPath/$ID.log"
+Get-Item "$DefaultPath/$ID.log" | Out-File -Encoding utf8  "$DefaultPath/$ID.log"
 # ログデータの送信
 if ($ENV -ne "ci") {
   Write-Output "[2/2] ログデータを送信しています..."
