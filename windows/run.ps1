@@ -55,10 +55,11 @@ if ($ENV -eq "CI") {
 }
 
 [string]$ID = Get-ChildItem $HOME -File -Filter key-* -Name
-
-if($ID.Length != 8){
+if($ID.Length <> 12){
   $ID = Confirm-StudentID
   New-Item "$HOME/key-$ID"
+} else{
+  $ID = Write-Host $ID.Substring(4, 6)
 }
 
 # ファイルの作成に使用するので実行時のパスを取得
