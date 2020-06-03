@@ -55,7 +55,7 @@ if ($ENV -eq "CI") {
 }
 
 [string]$ID = Get-ChildItem $HOME -File -Filter key-* -Name
-if($ID.Length <> 12){
+if($ID.Length -ne 12){
   $ID = Confirm-StudentID
   New-Item "$HOME/key-$ID"
 } else{
