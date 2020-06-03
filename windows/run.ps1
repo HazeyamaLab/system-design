@@ -55,7 +55,7 @@ if ($ENV -eq "CI") {
 }
 
 [string]$ID = Get-ChildItem $HOME -File -Filter key-* -Name
-Write-Output $ID
+
 if($ID.Length -ne 12){
   $ID = Confirm-StudentID
   New-Item "$HOME/key-$ID"
@@ -67,7 +67,7 @@ if($ID.Length -ne 12){
 [string]$DefaultPath = Convert-Path .
 
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
-gradle tomcatRun -i >> "$DefaultPath/$ID.log"
+gradle tomcatRun -q >> "$DefaultPath/$ID.log"
 
 # ログデータの送信
 if ($ENV -ne "ci") {
