@@ -56,23 +56,31 @@ if ($ENV -eq "CI") {
 
 [string]$ID = Get-ChildItem $HOME -File -Filter key-* -Name
 
-if($ID.Length -ne 12){
+if ($ID.Length -ne 12) {
   $ID = Confirm-StudentID
   New-Item "$HOME/key-$ID"
-} else{
+} else {
   $ID = $ID.Substring(4, 8)
 }
 
 # ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
 
+if (Test-Path "$DefaultPath/$ID.log"){
+  Remove-Item "$DefaultPath/$ID.log"
+}
+
+Start-Transcript "$DefaultPath/$ID.log"
+
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
-gradle tomcatRun -i > "$DefaultPath/$ID.log"
+gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
 [string]$STR = Get-Content "$DefaultPath/$ID.log"
 $STR | Out-File -Encoding utf8 "$DefaultPath/$ID.log"
 
+Stop-Transcript
 # ログデータの送信
+
 if ($ENV -ne "ci") {
   Write-Output "[2/2] ログデータを送信しています..."
   Invoke-WebRequest -Method Post -InFile "$DefaultPath\$ID.log" https://hazelab-logger.netlify.app/.netlify/functions/tomcat-run?name="$ID.log"

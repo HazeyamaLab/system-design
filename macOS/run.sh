@@ -76,7 +76,7 @@ echo "------------------------------------------------------------
 ------------------------------------------------------------" >> "$LOG_OUT"
 
 echo "[1/2] gradle tomcatRun を実行中です."
-gradle tR -i > "$LOG_OUT"
+gradle tR -i >> "$LOG_OUT"
 echo "[2/2] 実行ログを送信しています．"
 curl -fsSL -X POST -H "Content-Type: application/octet-stream" --data-binary "@${LOG_OUT}"  https://hazelab-logger.netlify.app/.netlify/functions/tomcat-run?name="${FILE_NAME}"
 
