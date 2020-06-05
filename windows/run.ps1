@@ -72,13 +72,13 @@ if (Test-Path "$DefaultPath/$ID.log"){
 
 Start-Transcript "$DefaultPath/$ID.log"
 
+Stop-Transcript
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
 gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
 [string]$STR = Get-Content "$DefaultPath/$ID.log"
 $STR | Out-File -Encoding utf8 "$DefaultPath/$ID.log"
 
-Stop-Transcript
 # ログデータの送信
 
 if ($ENV -ne "ci") {
