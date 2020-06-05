@@ -70,13 +70,13 @@ if (Test-Path "$DefaultPath/$ID.log"){
   Remove-Item "$DefaultPath/$ID.log"
 }
 
-Write-Output $ID | Set-Content -Encoding Default "$DefaultPath/$ID.log"
-
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
 gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
 [string]$STR = Get-Content "$DefaultPath/$ID.log"
 $STR | Out-File -Encoding utf8 "$DefaultPath/$ID.log"
+
+Write-Output $ID | Add-Content -Encoding utf8 "$DefaultPath/$ID.log"
 
 # ログデータの送信
 
