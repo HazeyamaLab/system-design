@@ -73,6 +73,7 @@ if (Test-Path "$DefaultPath/$ID.log"){
 Start-Transcript "$DefaultPath/$ID.log"
 
 Stop-Transcript
+
 Write-Output "[1/2] gradle TomcatRunを実行しています..."
 gradle tomcatRun -i >> "$DefaultPath/$ID.log"
 
