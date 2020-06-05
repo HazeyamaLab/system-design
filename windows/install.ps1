@@ -62,6 +62,8 @@ if ($ENV -eq "CI") {
   [string]$ID = Confirm-StudentID
 }
 
+# 学籍番号がわかるようにファイルの作成
+New-Item "$HOME/key-$ID"
 # ファイルの作成に使用するので実行時のパスを取得
 [string]$DefaultPath = Convert-Path .
 
