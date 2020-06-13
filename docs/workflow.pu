@@ -1,0 +1,34 @@
+@startuml workflow
+
+start
+
+: git commit;
+: git push;
+
+partition "GitHub Actions" {
+
+  fork
+
+  : Setup Virtual Environments \n Windows Server 2019 ;
+
+    partition "windows" {
+      : Lint (static analysis) ;
+      : Test script with PowerShell;
+    }
+
+  fork again
+
+  : Setup Virtual Environments \n macOS 10.15 ;
+
+    partition "macOS" {
+      : Lint (static analysis) ;
+      : Test script with Bash;
+    }
+
+  end fork
+  : Upload result file to artifact;
+}
+
+end
+
+@enduml
