@@ -2,6 +2,8 @@
 
 ![](https://github.com/HazeyamaLab/system-design/workflows/windows/badge.svg)
 ![](https://github.com/HazeyamaLab/system-design/workflows/macOS/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d1a43ce7-ec5f-4883-998a-303ae4a43e54/deploy-status)](https://app.netlify.com/sites/hazelab-logger/deploys)
+
 
 東京学芸大学「情報システム設計」の環境構築用のスクリプトです。
 
