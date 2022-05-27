@@ -9,9 +9,9 @@
 
 1. 2021 年度システム設計でインストールするもの
 
-   - 統合開発環境（２～３）
-   - パッケージ管理ツール（４）
-   - java（４）
+   - 統合開発環境
+   - パッケージ管理ツール
+   - jav
    - ビルドツール Gradle 7.4.2
    - mysql8.0（４）
 
@@ -111,6 +111,7 @@
 
    ```powershell
    PS C:\Windows\system32> scoop install git
+   PS C:\Windows\system32> scoop bucket add main
    PS C:\Windows\system32> scoop bucket add extras
    PS C:\Windows\system32> scoop bucket add java
    ```
@@ -160,28 +161,28 @@ PS C:\Windows\system32> choco install -y mysql
 
 - gradle の version を確認
 
-  以下のコマンドで 7.1 かを確認する。
+  以下のコマンドで 7.4 かを確認する。
 
 ```powershell
 PS C:\Windows\System32> gradle -v
 
 ------------------------------------------------------------
-Gradle 7.1
+Gradle 7.4.2
 ------------------------------------------------------------
 
-Build time:   2021-06-14 14:47:26 UTC
-Revision:     989ccc9952b140ee6ab88870e8a12f1b2998369e
+Build time:   2022-03-31 15:25:29 UTC
+Revision:     540473b8118064efcc264694cbcaa4b677f61041
 
-Kotlin:       1.4.31
-Groovy:       3.0.7
-Ant:          Apache Ant(TM) version 1.10.9 compiled on September 27 2020
+Kotlin:       1.5.31
+Groovy:       3.0.9
+Ant:          Apache Ant(TM) version 1.10.11 compiled on July 10 2021
 JVM:          17.0.2 (Oracle Corporation 17.0.2+8-86)
 OS:           Windows 11 10.0 amd64
 ```
 
 - java の version を確認
 
-以下のコマンドで 11.0.x かを確認する。
+以下のコマンドで 17.0.x かを確認する。
 
 ```powershell
 PS C:\Windows\system32> java --version
