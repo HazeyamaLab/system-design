@@ -12,7 +12,7 @@
    - 統合開発環境（２～３）
    - パッケージ管理ツール（４）
    - java（４）
-   - ビルドツール Gradle 7.1
+   - ビルドツール Gradle 7.4.2
    - mysql8.0（４）
 
 2. 統合開発環境の種類
@@ -128,7 +128,7 @@
    java のビルドを実行するためにビルドツール「Gradle（グレイドル）」を使用します。こちらも先ほど準備した Scoop を使用しインストールします。以下のコマンドをにコピーしエンターを押してください。
 
    ```powershell
-   PS C:\Windows\system32> scoop install gradle@7.1
+   PS C:\Windows\system32> scoop install gradle
    ```
 
    ### choco のインストール
