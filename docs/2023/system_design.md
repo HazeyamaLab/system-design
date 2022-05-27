@@ -12,7 +12,7 @@
    - 統合開発環境（２～３）
    - パッケージ管理ツール（４）
    - java（４）
-   - ビルドツール Gradle 7.9.1（４）<!-- TODO versionを確認 -->
+   - ビルドツール Gradle 7.1
    - mysql8.0（４）
 
 2. 統合開発環境の種類
@@ -38,26 +38,21 @@
 
       https://mergedoc.osdn.jp/
 
-      <!-- ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse1.png) -->
-      <!-- TODO画像差し替え -->
+      ![]("./../images/eclipse1.png)
       <div align="center">図1：Pleiades All in Oneダウンロード画面(version選択)</div>
 
       [手順 2]
 
       OS ごとに、Java の Full Edition の Download を選択します(図 2)。
 
-      <!-- TODO 画像差し替え2 -->
-
       ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse2.png)
       <div align="center">図 2：パッケージの選択画面</div>
 
       [手順 3]
 
-      選択後は図 3 のような画面に遷移し、表示された URL にアクスするとダウンロードが開始されます(Windows の場合は zip、MacOS の場合は dmg がダウンロードされます)。ダウンロードには時間がかかるので、注意してください(容量が 1GB ほどあるためです)。
+      選択後は図 3 のような画面に遷移し、表示された URL にアクセスするとダウンロードが開始されます(Windows の場合は zip、MacOS の場合は dmg がダウンロードされます)。ダウンロードには時間がかかるので、注意してください(容量が 1GB ほどあるためです)。
 
-      <!-- TODO 画像差し替え3 -->
-
-      ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse3.png)
+      ![]("./../images/eclipse3.png)
 
       [手順 4]
 
@@ -68,10 +63,11 @@
       Windows の場合は図 4 のように、表示がされていれば成功です。macOS の場合は、指示に従うとアプリケーションの中に Eclipse が配置されます。
 
       ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/windows_file.png)
+      <div align="center">図 4：Eclipse.exeをファイルシステムにある画面</div>
 
 ---
 
-4. java, Gradle,mysql のインストール
+1. java, Gradle,mysql のインストール
 
    各 PC の OS によってインストール方法が異なるのでそれぞれを参考にしてください（MacOS の方は個別で対応いたします）。
 
