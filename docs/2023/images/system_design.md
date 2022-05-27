@@ -3,8 +3,8 @@
 </div>
 
 <div align="right">
-    2021/9/8<br>
-    古川貴一
+    2022/5/18<br>
+    浅野耀介
 </div>
 
 1. 2021 年度システム設計でインストールするもの
@@ -12,12 +12,12 @@
    - 統合開発環境（２～３）
    - パッケージ管理ツール（４）
    - java（４）
-   - ビルドツール Gradle 6.2.2（４）
+   - ビルドツール Gradle 7.9.1（４）<!-- TODO versionを確認 -->
    - mysql8.0（４）
 
 2. 統合開発環境の種類
 
-   - Eclipse: 2021
+   - Eclipse: 2022
    - Visual Studio Code(VS Code)
    - JetBrains 系(IntelliJ IDEA )
 
@@ -34,17 +34,19 @@
 
       [手順 1]
 
-      以下の URL から「Eclipse2021」を選択します(図 1)。
+      以下の URL から「Eclipse2022」を選択します(図 1)。
 
       https://mergedoc.osdn.jp/
 
-      ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse1.png)
-
+      <!-- ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse1.png) -->
+      <!-- TODO画像差し替え -->
       <div align="center">図1：Pleiades All in Oneダウンロード画面(version選択)</div>
 
       [手順 2]
 
       OS ごとに、Java の Full Edition の Download を選択します(図 2)。
+
+      <!-- TODO 画像差し替え2 -->
 
       ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse2.png)
       <div align="center">図 2：パッケージの選択画面</div>
@@ -53,37 +55,19 @@
 
       選択後は図 3 のような画面に遷移し、表示された URL にアクスするとダウンロードが開始されます(Windows の場合は zip、MacOS の場合は dmg がダウンロードされます)。ダウンロードには時間がかかるので、注意してください(容量が 1GB ほどあるためです)。
 
+      <!-- TODO 画像差し替え3 -->
+
       ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/eclipse3.png)
 
       [手順 4]
 
-      ダウンロード完了後、Windows の場合は zip ファイルを解凍、macOS の場合は dmg を実行します。
+      ダウンロード完了後、Windows の場合 zip ファイルを C ドライブ直下において, zip ファイルを解凍、macOS の場合は dmg を実行します。
 
       [手順 5]
 
       Windows の場合は図 4 のように、表示がされていれば成功です。macOS の場合は、指示に従うとアプリケーションの中に Eclipse が配置されます。
 
       ![](https://raw.githubusercontent.com/HazeyamaLab/system-design/master/docs/2021/images/windows_file.png)
-
-      【櫨山経験談】
-
-      - Eclipse のインストールは、ダウンロードした zip ファイルを C ドライブ直下においた方が良い。
-
-      - C ドライブ直下に解凍ソフトを「Lhaca」で解凍して、eclipse を起動しようとしたら eclipse executable launcher was unable to locate its companion shared library.というエラーメッセージが出て起動できなかった。
-        ⇒ 解決策が以下の URL にあった。C ドライブに置く必要があるという趣旨。また解凍ソフトとして Lhaca は適さないかも。指示とおり 7-zip で解凍(展開)したらできました!
-
-        http://pedal-blog.2-d.jp/eclipse-unable-to/ 統合開発環境 Eclipse のダウンロード
-
-4. 統合開発環境 IntelliJ(Jet Brain 系)のダウンロード
-
-   JetBrains 系のソフトウェアを使用するために、以下の URL にメールアドレスを入力してアカウントの作成をする。学生は学内メールアドレス(@st.u-gakugei.ac.jp のもの)を使用すると無料で扱えます。
-   https://account.jetbrains.com/login
-
-5. 統合開発環境 Visual Studio Code のダウンロード
-
-   下記 URL から、自身の PC の OS に対応するものを選択する。こちらはアカウントの作成などはなく無料で使用することができます。コードの保管などはデフォルトの機能では搭載されていないので、自身で設定をする必要があります。
-
-   https://code.visualstudio.com/download
 
 ---
 
