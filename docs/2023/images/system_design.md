@@ -123,14 +123,8 @@
 
    先ほど準備した Scoop を使用し、Java をインストールします。
 
-   １、２行目ではそれぞれ異なるバージョンの java をダウンロードしています。それぞれの環境によって予期せぬエラーに対応する際に変更ができるように、２つのバージョンをインストールしています。
-
-   その後、デフォルトの設定を`adopt11-hotspot`に設定しています。
-
    ```powershell
-   PS C:\Windows\system32> scoop install adopt8-hotspot
-   PS C:\Windows\system32> scoop install adopt11-hotspot
-   PS C:\Windows\system32> scoop reset adopt11-hotspot
+   PS C:\Windows\system32> scoop install openjdk
    ```
 
    ### Gradle のインストール
@@ -173,19 +167,20 @@ PS C:\Windows\system32> choco install -y mysql
   以下のコマンドで 7.1 かを確認する。
 
 ```powershell
-PS C:\Windows\system32> gradle -v
+PS C:\Windows\System32> gradle -v
+
 ------------------------------------------------------------
-Gradle 7.1.0
+Gradle 7.1
 ------------------------------------------------------------
 
-Build time:   2020-03-04 08:49:31 UTC
-Revision:     7d0bf6dcb46c143bcc3b7a0fa40a8e5ca28e5856
+Build time:   2021-06-14 14:47:26 UTC
+Revision:     989ccc9952b140ee6ab88870e8a12f1b2998369e
 
-Kotlin:       1.3.61
-Groovy:       2.5.8
-Ant:          Apache Ant(TM) version 1.10.7 compiled on September 1 2019
-JVM:          11.0.11 (AdoptOpenJDK 11.0.11+9)
-OS:           Windows 10 10.0 amd64
+Kotlin:       1.4.31
+Groovy:       3.0.7
+Ant:          Apache Ant(TM) version 1.10.9 compiled on September 27 2020
+JVM:          17.0.2 (Oracle Corporation 17.0.2+8-86)
+OS:           Windows 11 10.0 amd64
 ```
 
 - java の version を確認
@@ -194,9 +189,9 @@ OS:           Windows 10 10.0 amd64
 
 ```powershell
 PS C:\Windows\system32> java --version
-openjdk 11.0.11 2021-04-20
-OpenJDK Runtime Environment AdoptOpenJDK-11.0.11+9 (build 11.0.11+9)
-OpenJDK 64-Bit Server VM AdoptOpenJDK-11.0.11+9 (build 11.0.11+9, mixed mode)
+openjdk 17.0.2 2022-01-18
+OpenJDK Runtime Environment (build 17.0.2+8-86)
+OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
 ```
 
 - mysql の version を確認
